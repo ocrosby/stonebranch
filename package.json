@@ -1,25 +1,25 @@
 {
-  "name": "sports-api",
+  "name": "stonebranch",
   "version": "0.0.1",
-  "description": "An API for sports data",
+  "description": "A demo project for Stonebranch",
   "main": "index.js",
   "scripts": {
     "prepare": "husky install"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jedi-knights/sports-api.git"
+    "url": "https://github.com/ocrosby/stonebranch.git"
   },
   "keywords": [
-    "Sports API",
-    "jedi-knights"
+    "stonebranch",
+    "demo"
   ],
   "author": "Omar Crosby <omar.crosby@gmail.com>",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/jedi-knights/sports-api/issues"
+    "url": "https://github.com/ocrosby/stonebranch/issues"
   },
-  "homepage": "https://github.com/jedi-knights/sports-api#readme",
+  "homepage": "https://github.com/ocrosby/stonebranch#readme",
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
