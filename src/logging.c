@@ -47,15 +47,13 @@ int log_message(LogLevel level, const char* message) {
 char* get_timestamp() {
     time_t rawtime;
     struct tm* timeinfo;
+    char* timestamp = malloc(sizeof(char) * 26); // Allocate memory for timestamp string
+
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    char* timestamp = asctime(timeinfo);
 
-    // Remove newline character
-    size_t len = strlen(timestamp);
-    if (len > 0 && timestamp[len-1] == '\n') {
-        timestamp[len-1] = '\0';
-    }
+    // Format time into timestamp string
+    strftime(timestamp, 26, "%a %b %d %H:%M:%S %Y", timeinfo);
 
     return timestamp;
 }
