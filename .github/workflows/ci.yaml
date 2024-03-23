@@ -22,11 +22,14 @@ jobs:
       - name: Run cppcheck
         run: cppcheck --enable=all --inconclusive --force --language=c --std=c99 --error-exitcode=1 .
 
-      - name: Run clang
-        run: clang -Wall -Wextra -Werror -Wpedantic -std=c99 -o main main.c
+      - name: Run Clang Static Analyzer
+        run: |
+          scan-build make
 
       - name: Compile
-        run: make
+        run: |
+          make clean
+          make demo
 
 #      - name: run tests
 #        run: ./tests
