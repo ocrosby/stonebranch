@@ -63,8 +63,25 @@ jobs:
           cmake ..
           scan-build make
 
+  Test:
+    needs: [Commit-Lint]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Set up Google Test
+        run: |
+          chmod +x scripts/install-gtest.sh
+          ./scripts/install-gtest.sh
+
   Build:
-    needs: [Analyze, Commit-Lint]
+    needs: [Test]
     runs-on: ubuntu-latest
 
     steps:
