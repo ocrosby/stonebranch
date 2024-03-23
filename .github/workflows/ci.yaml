@@ -16,7 +16,6 @@ jobs:
           sudo apt-get install -y cppcheck
           sudo apt-get install -y clang
           sudo apt-get install -y clang-tools
-          sudo apt-get install -y clang-analyzer
 
       # this command checks all C files in the current directory and its subdirectories,
       # using the C99 standard, enables all checks, reports inconclusive warnings, checks
