@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "logging.h"
+
 void print_help();
 
 int main(int argc, char *argv[]) {
@@ -21,10 +23,14 @@ int main(int argc, char *argv[]) {
     } // end for
 
     if (verbose) {
-        printf("Verbose mode enabled\n");
+        log_message(INFO, "Verbose mode enabled");
     } // end if
 
-    printf("Hello, World!\n");
+    log_message(INFO, "Program started");
+
+    log_message(INFO, "Hello, World!");
+
+    log_message(INFO, "Program finished");
 
     return 0;
 }
