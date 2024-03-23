@@ -77,8 +77,8 @@ jobs:
 
       - name: Set up Google Test
         run: |
-          chmod +x scripts/install-gtest.sh
-          ./scripts/install-gtest.sh
+          chmod +x scripts/install_gtest.sh
+          ./scripts/install_gtest.sh
 
   Build:
     needs: [Test, Analyze]
