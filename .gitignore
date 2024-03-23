@@ -54,3 +54,4 @@ dkms.conf
 demo
 build
 .idea/
+node_modules/

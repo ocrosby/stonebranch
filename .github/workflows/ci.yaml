@@ -6,7 +6,65 @@ env:
   NODE_VERSION: 20.11.1
 
 jobs:
-  build:
+  Commit-Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ env.NODE_CACHE }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Export Commit Message
+        run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=%s)" >> $GITHUB_ENV
+
+      - name: Analyze Javascript Syntax
+        run: npx eslint .releaserc.js commitlint.config.js
+
+      - name: Lint Commit Message
+        run: echo "$COMMIT_MESSAGE" | npx commitlint
+
+  Analyze:
+    needs: [Commit-Lint]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+          sudo apt-get install -y cmake
+          sudo apt-get install -y cppcheck
+          sudo apt-get install -y clang
+          sudo apt-get install -y clang-tools
+
+      # this command checks all C files in the current directory and its subdirectories,
+      # using the C99 standard, enables all checks, reports inconclusive warnings, checks
+      # all preprocessor paths, and returns an error code if any issues are found.
+      - name: Run cppcheck
+        run: cppcheck --enable=all --inconclusive --force --language=c --std=c99 --error-exitcode=1 .
+
+      - name: Run Clang Static Analyzer
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          scan-build make
+
+  Build:
+    needs: [Analyze, Commit-Lint]
     runs-on: ubuntu-latest
 
     steps:
@@ -46,5 +104,39 @@ jobs:
           cmake ..
           make
 
-#      - name: run tests
-#        run: ./tests
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-artifact
+          path: ./build/demo
+
+  Release:
+    needs: [Build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: demo-artifact
+          path: ./build/demo
+
+      - name: Install Dependencies
+        run: npm clean-install
+
+      - name: Run Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

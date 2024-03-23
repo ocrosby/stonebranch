@@ -25,3 +25,4 @@ action.
 * [Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
 * [Google Test](https://github.com/google/googletest)
 * [Unit Testing C Code with Google Test](https://notes.eatonphil.com/unit-testing-c-code-with-gtest.html)
+* [Semantic Release Action](https://github.com/marketplace/actions/semantic-release-action)
