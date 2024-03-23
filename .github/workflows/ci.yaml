@@ -27,11 +27,14 @@ jobs:
 
       - name: Run Clang Static Analyzer
         run: |
+          mkdir -p build
+          cd build
+          cmake ..
           scan-build make
 
       - name: Compile
         run: |
-          mkdir build
+          mkdir -p build
           cd build
           cmake ..
           make
