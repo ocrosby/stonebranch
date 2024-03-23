@@ -14,12 +14,16 @@ jobs:
         run: |
           sudo apt-get install -y gcc make
           sudo apt-get install -y cppcheck
+          sudo apt-get install -y clang
 
       # this command checks all C files in the current directory and its subdirectories,
       # using the C99 standard, enables all checks, reports inconclusive warnings, checks
       # all preprocessor paths, and returns an error code if any issues are found.
       - name: Run cppcheck
         run: cppcheck --enable=all --inconclusive --force --language=c --std=c99 --error-exitcode=1 .
+
+      - name: Run clang
+        run: clang -Wall -Wextra -Werror -Wpedantic -std=c99 -o main main.c
 
       - name: Compile
         run: make
