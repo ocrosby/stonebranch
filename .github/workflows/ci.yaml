@@ -81,7 +81,7 @@ jobs:
           ./scripts/install-gtest.sh
 
   Build:
-    needs: [Test]
+    needs: [Test, Analyze]
     runs-on: ubuntu-latest
 
     steps:
