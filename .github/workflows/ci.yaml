@@ -75,10 +75,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Set up Google Test
+      - name: Install Google Test
         run: |
-          chmod +x scripts/install_gtest.sh
-          ./scripts/install_gtest.sh
+          sudo apt-get update
+          sudo apt-get install -y cmake
+          sudo apt-get install -y libgtest-dev
+          pushd /usr/src/gtest
+          ls -la 
+          sudo cp *.a /usr/lib
+          sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a
+          sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a          
 
   Build:
     needs: [Test, Analyze]
