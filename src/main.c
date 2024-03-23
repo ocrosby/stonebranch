@@ -20,6 +20,9 @@ int main(int argc, char *argv[]) {
         } // end if
     } // end for
 
+    if (verbose) {
+        printf("Verbose mode enabled\n");
+    } // end if
 
     printf("Hello, World!\n");
 
