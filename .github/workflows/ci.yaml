@@ -89,7 +89,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake -Wno-dev ..
           make  
 
       - name: Run Unit Tests
