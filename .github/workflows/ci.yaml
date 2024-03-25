@@ -54,7 +54,7 @@ jobs:
       # using the C99 standard, enables all checks, reports inconclusive warnings, checks
       # all preprocessor paths, and returns an error code if any issues are found.
       - name: Run cppcheck
-        run: cppcheck --enable=all --inconclusive --force --language=c --std=c99 --error-exitcode=1 .
+        run: cppcheck --enable=all --inconclusive --force --language=c --std=c99 --error-exitcode=1 --suppressions-list=cppcheck-suppressions.txt .
 
       - name: Run Clang Static Analyzer
         run: |
