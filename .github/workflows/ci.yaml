@@ -61,7 +61,9 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          scan-build --exclude=./googletest make
+#          scan-build make
+          scan-build --use-analyzer=/usr/bin/clang --status-bugs --exclude <directory> make
+
 
   Test:
     needs: [Commit-Lint]
