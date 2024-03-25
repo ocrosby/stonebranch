@@ -75,9 +75,15 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - uses: Bacondish2023/setup-googletest@v1
-        with:
-          tag: v1.14.0
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+          sudo apt-get install -y cmake
+
+#      - uses: Bacondish2023/setup-googletest@v1
+#        with:
+#          tag: v1.14.0
 
       - name: Build and Test
         run: |
