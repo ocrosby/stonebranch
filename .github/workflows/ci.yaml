@@ -90,8 +90,12 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          make
-          ctest --output-on-failure      
+          make  
+
+      - name: Run Unit Tests
+        run: |
+          cd build
+          make test
 
   Build:
     needs: [Test, Analyze]
