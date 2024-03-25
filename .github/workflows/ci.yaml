@@ -61,7 +61,7 @@ jobs:
           mkdir -p build
           cd build
           cmake ..
-          scan-build make
+          scan-build --exclude=./googletest make
 
   Test:
     needs: [Commit-Lint]
